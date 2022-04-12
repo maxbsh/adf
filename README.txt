@@ -1,0 +1,1 @@
+Das ist ein Testrepo für die Azure Data Factory (adf).
