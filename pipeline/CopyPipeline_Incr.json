@@ -1,10 +1,10 @@
 {
-	"name": "CopyPipeline_incr",
+	"name": "CopyPipeline_Incr",
 	"properties": {
 		"description": "incremental Copy",
 		"activities": [
 			{
-				"name": "Copy_kee",
+				"name": "Copy_Incr",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -76,13 +76,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SourceDataset_datalake_incr",
+						"referenceName": "SourceDataset_DataLake_Incr",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_Blob_incr",
+						"referenceName": "DestinationDataset_Blob_Incr",
 						"type": "DatasetReference",
 						"parameters": {
 							"cw_folderPath": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}@{formatDateTime(pipeline().parameters.windowStart,'mm')}"

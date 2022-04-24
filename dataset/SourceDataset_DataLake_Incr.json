@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset_datalake_incr",
+	"name": "SourceDataset_DataLake_Incr",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

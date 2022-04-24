@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_Blob_incr",
+	"name": "DestinationDataset_Blob_Incr",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
