@@ -22,7 +22,7 @@
 			"recurrence": {
 				"frequency": "Hour",
 				"interval": 7,
-				"startTime": "2022-04-24T14:00:00",
+				"startTime": "2022-04-24T15:00:00",
 				"timeZone": "W. Europe Standard Time"
 			}
 		}
