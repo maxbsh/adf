@@ -1,5 +1,5 @@
 {
-	"name": "DestinationDataset_x34",
+	"name": "DestinationDataset_Blob_Full",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
