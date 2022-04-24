@@ -1,0 +1,104 @@
+{
+	"name": "CopyPipeline_incr",
+	"properties": {
+		"description": "incremental Copy",
+		"activities": [
+			{
+				"name": "Copy_kee",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "//"
+					},
+					{
+						"name": "Destination",
+						"value": "backupdirectory/@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}@{formatDateTime(pipeline().parameters.windowStart,'mm')}/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": {
+								"value": "@pipeline().parameters.windowStart",
+								"type": "Expression"
+							},
+							"modifiedDatetimeEnd": {
+								"value": "@pipeline().parameters.windowEnd",
+								"type": "Expression"
+							},
+							"wildcardFileName": "*"
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						}
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": false,
+					"skipErrorFile": {
+						"fileMissing": true,
+						"fileForbidden": true,
+						"invalidFileName": true
+					},
+					"validateDataConsistency": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": "logincr/"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_datalake_incr",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_Blob_incr",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_folderPath": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}@{formatDateTime(pipeline().parameters.windowStart,'mm')}"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"windowStart": {
+				"type": "String"
+			},
+			"windowEnd": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
