@@ -8,6 +8,12 @@
 				"pipelineReference": {
 					"referenceName": "CopyPipeline_Full_copy1",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"windowStart": {
+						"type": "Expression",
+						"value": "@trigger().scheduledTime"
+					}
 				}
 			}
 		],
