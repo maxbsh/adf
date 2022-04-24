@@ -1,0 +1,30 @@
+{
+	"name": "Trigger_7h",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CopyPipeline_Full",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"windowStart": {
+						"type": "Expression",
+						"value": "@trigger().scheduledTime"
+					}
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 7,
+				"startTime": "2022-04-24T11:00:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
