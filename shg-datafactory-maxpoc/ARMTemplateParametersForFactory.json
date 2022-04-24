@@ -5,26 +5,14 @@
 		"factoryName": {
 			"value": "shg-datafactory-maxpoc"
 		},
-		"shgst01maxpoc_accountKey": {
-			"value": ""
-		},
-		"shgst03maxbk1poc_connectionString": {
+		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"AzureBlobStorage1_connectionString": {
-			"value": ""
-		},
-		"Trigger_4h_properties_BackupPipe_parameters_windowStart": {
-			"value": "@{addhours(trigger().scheduledTime, -4)}"
-		},
-		"Trigger_4h_properties_BackupPipe_parameters_windowEnd": {
-			"value": "@trigger().scheduledTime"
-		},
-		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
-			"value": "@trigger().scheduledTime"
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://shgst01maxpoc.dfs.core.windows.net"
 		},
 		"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart": {
 			"value": "@{addhours(trigger().scheduledTime, -1)}"
@@ -32,11 +20,8 @@
 		"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd": {
 			"value": "@trigger().scheduledTime"
 		},
-		"shgst01maxpoc_properties_typeProperties_url": {
-			"value": "https://shgst01maxpoc.dfs.core.windows.net"
-		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
-			"value": "https://shgst01maxpoc.dfs.core.windows.net"
+		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
+			"value": "@trigger().scheduledTime"
 		}
 	}
 }

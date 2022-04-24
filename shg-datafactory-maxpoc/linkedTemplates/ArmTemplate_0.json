@@ -7,47 +7,27 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "shg-datafactory-maxpoc"
 		},
-		"shgst01maxpoc_accountKey": {
+		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'shgst01maxpoc'"
-		},
-		"shgst03maxbk1poc_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'shgst03maxbk1poc'"
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
 		"AzureDataLakeStorage1_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
-		"AzureBlobStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
-		},
-		"shgst01maxpoc_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://shgst01maxpoc.dfs.core.windows.net"
-		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://shgst01maxpoc.dfs.core.windows.net"
-		},
-		"Trigger_4h_properties_BackupPipe_parameters_windowStart": {
-			"type": "string",
-			"defaultValue": "@{addhours(trigger().scheduledTime, -4)}"
-		},
-		"Trigger_4h_properties_BackupPipe_parameters_windowEnd": {
-			"type": "string",
-			"defaultValue": "@trigger().scheduledTime"
-		},
-		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
-			"type": "string",
-			"defaultValue": "@trigger().scheduledTime"
 		},
 		"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart": {
 			"type": "string",
 			"defaultValue": "@{addhours(trigger().scheduledTime, -1)}"
 		},
 		"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd": {
+			"type": "string",
+			"defaultValue": "@trigger().scheduledTime"
+		},
+		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
 		}
@@ -57,21 +37,30 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/trigger_every4h')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "alle 4 Stunden löst dieser Trigger aus",
 				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [],
-				"type": "ScheduleTrigger",
+				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"recurrence": {
-						"frequency": "Hour",
-						"interval": 4,
-						"startTime": "2022-04-08T15:00:00Z",
-						"timeZone": "UTC"
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					}
 				}
 			},
@@ -98,96 +87,12 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/shgst01maxpoc')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "ADLSG2 Primärspeicher zum Testen einer Sicherungslösung",
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('shgst01maxpoc_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('shgst01maxpoc_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/shgst03maxbk1poc')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Azure Blob Speicher als Backup Ziel Ressource für AZDLG2 Storage",
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('shgst03maxbk1poc_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_BackupPipe')]",
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_Blob_Full')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "shgst01maxpoc",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "testcontainer01"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/shgst01maxpoc')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_BackupPipe')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "shgst03maxbk1poc",
+					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -204,12 +109,12 @@
 							"value": "@dataset().cw_folderPath",
 							"type": "Expression"
 						},
-						"container": "backupcontainer01"
+						"container": "backup-shgst01maxpoc"
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/shgst03maxbk1poc')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
 			]
 		},
 		{
@@ -235,64 +140,12 @@
 							"value": "@dataset().cw_folderPath",
 							"type": "Expression"
 						},
-						"container": "backupdirectory"
+						"container": "backup-shgst01maxpoc"
 					}
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_Blob_Full')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"cw_folderPath": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"folderPath": {
-							"value": "@dataset().cw_folderPath",
-							"type": "Expression"
-						},
-						"container": "backupdirectory"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_DataLake_Incr')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
@@ -308,7 +161,8 @@
 				"type": "Binary",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobFSLocation"
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "*"
 					}
 				}
 			},
@@ -317,122 +171,25 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BackupPipe')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_DataLake_Incr')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Pipeline zum Sichern der Daten.",
-				"activities": [
-					{
-						"name": "Copy_y35",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "testcontainer01//"
-							},
-							{
-								"name": "Destination",
-								"value": "backupcontainer01/data/@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}/@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}/"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "BinarySource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"modifiedDatetimeStart": {
-										"value": "@pipeline().parameters.windowStart",
-										"type": "Expression"
-									},
-									"modifiedDatetimeEnd": {
-										"value": "@pipeline().parameters.windowEnd",
-										"type": "Expression"
-									},
-									"wildcardFileName": "*",
-									"deleteFilesAfterCompletion": false
-								},
-								"formatSettings": {
-									"type": "BinaryReadSettings"
-								}
-							},
-							"sink": {
-								"type": "BinarySink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings",
-									"copyBehavior": "PreserveHierarchy"
-								}
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"skipErrorFile": {
-								"fileMissing": true,
-								"fileForbidden": true,
-								"invalidFileName": true,
-								"dataInconsistency": true
-							},
-							"validateDataConsistency": true,
-							"logSettings": {
-								"enableCopyActivityLog": true,
-								"copyActivityLogSettings": {
-									"logLevel": "Warning",
-									"enableReliableLogging": false
-								},
-								"logLocationSettings": {
-									"linkedServiceName": {
-										"referenceName": "shgst03maxbk1poc",
-										"type": "LinkedServiceReference"
-									},
-									"path": "backupcontainer01/log"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SourceDataset_BackupPipe",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DestinationDataset_BackupPipe",
-								"type": "DatasetReference",
-								"parameters": {
-									"cw_folderPath": "data/@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}/@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"windowStart": {
-						"type": "String"
-					},
-					"windowEnd": {
-						"type": "String"
-					}
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"lastPublishTime": "2022-04-08T15:23:01Z"
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "*"
+					}
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_BackupPipe')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_BackupPipe')]",
-				"[concat(variables('factoryId'), '/linkedServices/shgst03maxbk1poc')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
@@ -502,7 +259,7 @@
 										"referenceName": "AzureBlobStorage1",
 										"type": "LinkedServiceReference"
 									},
-									"path": "log/"
+									"path": "backup-shgst01maxpoc/log/"
 								}
 							}
 						},
@@ -533,8 +290,7 @@
 						"type": "String"
 					}
 				},
-				"annotations": [],
-				"lastPublishTime": "2022-04-24T12:41:30Z"
+				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SourceDataset_DataLake_Full')]",
@@ -616,7 +372,7 @@
 										"referenceName": "AzureBlobStorage1",
 										"type": "LinkedServiceReference"
 									},
-									"path": "logincr/"
+									"path": "backup-shgst01maxpoc/logincr/"
 								}
 							}
 						},
@@ -650,8 +406,7 @@
 						"type": "String"
 					}
 				},
-				"annotations": [],
-				"lastPublishTime": "2022-04-24T12:41:30Z"
+				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SourceDataset_DataLake_Incr')]",
@@ -660,77 +415,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Trigger_4h')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "BackupPipe",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"windowStart": "[parameters('Trigger_4h_properties_BackupPipe_parameters_windowStart')]",
-							"windowEnd": "[parameters('Trigger_4h_properties_BackupPipe_parameters_windowEnd')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Hour",
-						"interval": 4,
-						"startTime": "2022-04-08T19:00:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/BackupPipe')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Trigger_7h')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "CopyPipeline_Full",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"windowStart": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Hour",
-						"interval": 7,
-						"startTime": "2022-04-24T15:00:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_Full')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Trigger_1h')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -738,8 +428,14 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"windowStart": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart')]",
-							"windowEnd": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd')]"
+							"windowStart": {
+								"type": "Expression",
+								"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart')]"
+							},
+							"windowEnd": {
+								"type": "Expression",
+								"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd')]"
+							}
 						}
 					}
 				],
@@ -748,13 +444,48 @@
 					"recurrence": {
 						"frequency": "Hour",
 						"interval": 1,
-						"startTime": "2022-04-24T15:40:00",
+						"startTime": "2022-04-24T17:40:00",
 						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_Incr')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Trigger_7h')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "CopyPipeline_Full",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"windowStart": {
+								"type": "Expression",
+								"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart')]"
+							}
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 7,
+						"startTime": "2022-04-24T17:00:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_Full')]"
 			]
 		}
 	]
