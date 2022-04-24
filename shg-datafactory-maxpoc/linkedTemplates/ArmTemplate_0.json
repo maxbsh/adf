@@ -441,7 +441,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Get-Container-List').output",
+								"value": "@activity('Get-Container-List').output.childItems",
 								"type": "Expression"
 							},
 							"activities": [
@@ -743,8 +743,7 @@
 					"recurrence": {
 						"frequency": "Minute",
 						"interval": 30,
-						"startTime": "2022-04-24T22:56:00",
-						"endTime": "2022-04-24T23:00:00",
+						"startTime": "2022-04-24T23:03:00",
 						"timeZone": "W. Europe Standard Time"
 					}
 				}
