@@ -15,12 +15,6 @@
 						"value": "@trigger().scheduledTime"
 					}
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "CopyPipeline_Full_copy1",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
