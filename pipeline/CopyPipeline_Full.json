@@ -30,7 +30,6 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
 							"deleteFilesAfterCompletion": false
 						},
 						"formatSettings": {
