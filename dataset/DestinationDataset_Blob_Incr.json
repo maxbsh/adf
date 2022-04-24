@@ -19,7 +19,7 @@
 					"value": "@dataset().cw_folderPath",
 					"type": "Expression"
 				},
-				"container": "backupdirectory"
+				"container": "backup-shgst01maxpoc"
 			}
 		}
 	}
