@@ -11,9 +11,6 @@
 			},
 			"container": {
 				"type": "string"
-			},
-			"directory": {
-				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -22,7 +19,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"folderPath": {
-					"value": "@concat(dataset().cw_folderPath,'/',dataset().directory)",
+					"value": "@dataset().cw_folderPath",
 					"type": "Expression"
 				},
 				"container": {
