@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "shg-datafactory-maxpoc"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://shgst01maxpoc.dfs.core.windows.net"
+		},
+		"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart": {
+			"value": "@{addhours(trigger().scheduledTime, -1)}"
+		},
+		"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd": {
+			"value": "@trigger().scheduledTime"
+		},
+		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
+			"value": "@trigger().scheduledTime"
+		}
+	}
+}
