@@ -1,0 +1,26 @@
+{
+	"name": "SourceDataset_DataLake_Full_copy1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container": {
+				"type": "string"
+			},
+			"directory": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": " @dataset().directory",
+				"fileSystem": " @dataset().container"
+			}
+		}
+	}
+}
