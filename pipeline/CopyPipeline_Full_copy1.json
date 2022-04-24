@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "SourceDataset_DataLake_Full_copy1",
+						"referenceName": "SourceDataset_DataLake_Full_copy2",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -28,6 +28,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
