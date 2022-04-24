@@ -63,7 +63,7 @@
 								"referenceName": "AzureBlobStorage1",
 								"type": "LinkedServiceReference"
 							},
-							"path": "log/"
+							"path": "backup-shgst01maxpoc/log/"
 						}
 					}
 				},
