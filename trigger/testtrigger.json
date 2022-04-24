@@ -1,0 +1,25 @@
+{
+	"name": "testtrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CopyPipeline_Full_copy1",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 30,
+				"startTime": "2022-04-24T22:42:00",
+				"endTime": "2022-04-24T23:00:00",
+				"timeZone": "W. Europe Standard Time"
+			}
+		}
+	}
+}
