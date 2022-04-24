@@ -4,7 +4,7 @@
 		"description": "FullCopy",
 		"activities": [
 			{
-				"name": "Copy_x34",
+				"name": "Copy_Full",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -68,13 +68,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SourceDataset_x34",
+						"referenceName": "SourceDataset_DataLake_Full",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_x34",
+						"referenceName": "DestinationDataset_Blob_Full",
 						"type": "DatasetReference",
 						"parameters": {
 							"cw_folderPath": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}"
