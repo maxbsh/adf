@@ -4,7 +4,7 @@
 		"description": "FullCopy",
 		"activities": [
 			{
-				"name": "GetContainerList",
+				"name": "Get-Container-List",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -18,20 +18,13 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "SourceDataset_DataLake_Full_copy1",
-						"type": "DatasetReference",
-						"parameters": {
-							"container": {
-								"value": "@pipeline().parameters.DestinationFileFolder",
-								"type": "Expression"
-							},
-							"directory": {
-								"value": "@pipeline().parameters.DestinationFileDirectory",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"childItems"
+						{
+							"value": "GetContainerList()",
+							"type": "Expression"
+						}
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
@@ -47,7 +40,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "GetContainerList",
+						"activity": "Get-Container-List",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -56,7 +49,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('GetContainerList').output.childItems",
+						"value": "@activity('Get-Container-List').output",
 						"type": "Expression"
 					},
 					"activities": [
@@ -98,11 +91,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"container": {
-											"value": "@pipeline().parameters.DestinationFileFolder",
-											"type": "Expression"
-										},
-										"directory": {
-											"value": "@pipeline().parameters.DestinationFileDirectory",
+											"value": "@item()",
 											"type": "Expression"
 										}
 									}
@@ -118,11 +107,7 @@
 											"type": "Expression"
 										},
 										"container": {
-											"value": "@pipeline().parameters.DestinationFileFolder",
-											"type": "Expression"
-										},
-										"directory": {
-											"value": "@concat(pipeline().parameters.DestinationFileDirectory,'/',item().name)",
+											"value": "@item()",
 											"type": "Expression"
 										}
 									}
@@ -136,18 +121,6 @@
 		"parameters": {
 			"windowStart": {
 				"type": "String"
-			},
-			"SourceFileFolder": {
-				"type": "string"
-			},
-			"SourceFileDirectory": {
-				"type": "string"
-			},
-			"DestinationFileFolder": {
-				"type": "string"
-			},
-			"DestinationFileDirectory": {
-				"type": "string"
 			}
 		},
 		"annotations": []
