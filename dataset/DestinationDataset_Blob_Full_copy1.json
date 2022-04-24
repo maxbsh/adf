@@ -12,7 +12,7 @@
 			"container": {
 				"type": "string"
 			},
-			"folder": {
+			"directory": {
 				"type": "string"
 			}
 		},
@@ -22,7 +22,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"folderPath": {
-					"value": "@concat(dataset().cw_folderPath,'/',dataset().folder)",
+					"value": "@concat(dataset().cw_folderPath,'/',dataset().directory)",
 					"type": "Expression"
 				},
 				"container": {
