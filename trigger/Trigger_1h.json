@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "CopyPipeline_incr",
+					"referenceName": "CopyPipeline_Incr",
 					"type": "PipelineReference"
 				},
 				"parameters": {
