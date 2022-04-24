@@ -7,17 +7,33 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "shg-datafactory-maxpoc"
 		},
-		"AzureBlobStorage1_connectionString": {
+		"shgst01maxpoc_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+			"metadata": "Secure string for 'accountKey' of 'shgst01maxpoc'"
+		},
+		"shgst03maxbk1poc_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'shgst03maxbk1poc'"
 		},
 		"AzureDataLakeStorage1_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"Trigger_4h_properties_BackupPipe_parameters_windowStart": {
 			"type": "string",
-			"defaultValue": "https://shgst01maxpoc.dfs.core.windows.net"
+			"defaultValue": "@{addhours(trigger().scheduledTime, -4)}"
+		},
+		"Trigger_4h_properties_BackupPipe_parameters_windowEnd": {
+			"type": "string",
+			"defaultValue": "@trigger().scheduledTime"
+		},
+		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
+			"type": "string",
+			"defaultValue": "@trigger().scheduledTime"
 		},
 		"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart": {
 			"type": "string",
@@ -27,9 +43,13 @@
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
 		},
-		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
+		"shgst01maxpoc_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "@trigger().scheduledTime"
+			"defaultValue": "https://shgst01maxpoc.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://shgst01maxpoc.dfs.core.windows.net"
 		},
 		"containerUri": {
 			"type": "string",
@@ -58,23 +78,38 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureBlobStorage1_connectionString": {
-						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					"shgst01maxpoc_accountKey": {
+						"value": "[parameters('shgst01maxpoc_accountKey')]"
+					},
+					"shgst03maxbk1poc_connectionString": {
+						"value": "[parameters('shgst03maxbk1poc_connectionString')]"
 					},
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"shgst01maxpoc_properties_typeProperties_url": {
+						"value": "[parameters('shgst01maxpoc_properties_typeProperties_url')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"Trigger_4h_properties_BackupPipe_parameters_windowStart": {
+						"value": "[parameters('Trigger_4h_properties_BackupPipe_parameters_windowStart')]"
+					},
+					"Trigger_4h_properties_BackupPipe_parameters_windowEnd": {
+						"value": "[parameters('Trigger_4h_properties_BackupPipe_parameters_windowEnd')]"
+					},
+					"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
+						"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart')]"
 					},
 					"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart": {
 						"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowStart')]"
 					},
 					"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd": {
 						"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd')]"
-					},
-					"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
-						"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart')]"
 					}
 				}
 			},
