@@ -1,0 +1,153 @@
+{
+	"name": "CopyPipeline_Full_copy1",
+	"properties": {
+		"description": "FullCopy",
+		"activities": [
+			{
+				"name": "GetContainerList",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SourceDataset_DataLake_Full_copy1",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@pipeline().parameters.DestinationFileFolder",
+								"type": "Expression"
+							},
+							"directory": {
+								"value": "@pipeline().parameters.DestinationFileDirectory",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "BinaryReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "GetContainerList",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GetContainerList').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings",
+										"copyBehavior": "PreserveHierarchy"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_DataLake_Full_copy1",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@pipeline().parameters.DestinationFileFolder",
+											"type": "Expression"
+										},
+										"directory": {
+											"value": "@pipeline().parameters.DestinationFileDirectory",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_Blob_Full_copy1",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_folderPath": {
+											"value": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}",
+											"type": "Expression"
+										},
+										"container": {
+											"value": "@pipeline().parameters.DestinationFileFolder",
+											"type": "Expression"
+										},
+										"directory": {
+											"value": "@concat(pipeline().parameters.DestinationFileDirectory,'/',item().name)",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"windowStart": {
+				"type": "String"
+			},
+			"SourceFileFolder": {
+				"type": "string"
+			},
+			"SourceFileDirectory": {
+				"type": "string"
+			},
+			"DestinationFileFolder": {
+				"type": "string"
+			},
+			"DestinationFileDirectory": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
