@@ -21,10 +21,7 @@
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						{
-							"value": "GetContainerList()",
-							"type": "Expression"
-						}
+						"childItems"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
