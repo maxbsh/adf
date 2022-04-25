@@ -8,6 +8,10 @@
 		"parameters": {
 			"cw_folderPath": {
 				"type": "String"
+			},
+			"type": {
+				"type": "string",
+				"defaultValue": "full"
 			}
 		},
 		"annotations": [],
@@ -16,7 +20,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"folderPath": {
-					"value": "@dataset().cw_folderPath",
+					"value": "@concat(dataset().cw_folderPath,dataset().type)",
 					"type": "Expression"
 				},
 				"container": "backup-shgst01maxpoc"
