@@ -30,10 +30,6 @@
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
-		},
-		"testtrigger_properties_CopyPipeline_Full_copy1_parameters_windowStart": {
-			"type": "string",
-			"defaultValue": "@trigger().scheduledTime"
 		}
 	},
 	"variables": {
@@ -85,6 +81,26 @@
 						"interval": 7,
 						"startTime": "2022-04-24T11:00:00Z",
 						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/testtrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 30,
+						"startTime": "2022-04-24T23:03:00",
+						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},
@@ -483,7 +499,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"container": {
-													"value": "@item()",
+													"value": "@item().name",
 													"type": "Expression"
 												}
 											}
@@ -499,7 +515,7 @@
 													"type": "Expression"
 												},
 												"container": {
-													"value": "@item()",
+													"value": "@item().name",
 													"type": "Expression"
 												}
 											}
@@ -715,41 +731,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_Full')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/testtrigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "CopyPipeline_Full_copy1",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"windowStart": {
-								"type": "Expression",
-								"value": "[parameters('testtrigger_properties_CopyPipeline_Full_copy1_parameters_windowStart')]"
-							}
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 30,
-						"startTime": "2022-04-24T23:03:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_Full_copy1')]"
 			]
 		}
 	]
