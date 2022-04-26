@@ -29,7 +29,7 @@
 		},
 		"Trigger_1h_properties_CopyPipeline_Incr_parameters_directoryTime": {
 			"type": "string",
-			"defaultValue": "@{addhours(trigger().scheduledTime, +2)}"
+			"defaultValue": "@{if(Equals(addHours(convertTimeZone(trigger().scheduledTime, 'UTC', 'Central Standard Time'), -7, 'HH'),(addHours(trigger().scheduledTime, +2 'HH'))),(addhours(trigger().scheduledTime, +2)),(addhours(trigger().scheduledTime, +1)))}"
 		},
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"type": "string",
@@ -761,7 +761,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -828,7 +828,7 @@
 					"recurrence": {
 						"frequency": "Hour",
 						"interval": 7,
-						"startTime": "2022-04-24T22:00:00",
+						"startTime": "2022-04-26T17:00:00",
 						"timeZone": "W. Europe Standard Time"
 					}
 				}
