@@ -1,0 +1,19 @@
+{
+	"name": "SourceDataset_Blob_Restore",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "file02.txt",
+				"folderPath": "2022042517-full",
+				"container": "backup-shgst01maxpoc"
+			}
+		}
+	}
+}
