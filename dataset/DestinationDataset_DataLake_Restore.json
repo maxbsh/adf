@@ -1,0 +1,17 @@
+{
+	"name": "DestinationDataset_DataLake_Restore",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "container-a1"
+			}
+		}
+	}
+}
