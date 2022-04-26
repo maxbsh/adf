@@ -26,6 +26,9 @@
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"value": "@trigger().scheduledTime"
 		},
+		"Trigger_7h_properties_CopyPipeline_Full_parameters_directoryTime": {
+			"value": "@{addhours(trigger().scheduledTime, +2)}"
+		},
 		"containerUri": {
 			"value": ""
 		},

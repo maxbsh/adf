@@ -35,6 +35,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
 		},
+		"Trigger_7h_properties_CopyPipeline_Full_parameters_directoryTime": {
+			"type": "string",
+			"defaultValue": "@{addhours(trigger().scheduledTime, +2)}"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -82,6 +86,9 @@
 					},
 					"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 						"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart')]"
+					},
+					"Trigger_7h_properties_CopyPipeline_Full_parameters_directoryTime": {
+						"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_directoryTime')]"
 					}
 				}
 			},

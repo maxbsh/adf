@@ -34,6 +34,10 @@
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
+		},
+		"Trigger_7h_properties_CopyPipeline_Full_parameters_directoryTime": {
+			"type": "string",
+			"defaultValue": "@{addhours(trigger().scheduledTime, +2)}"
 		}
 	},
 	"variables": {
@@ -851,6 +855,10 @@
 							"windowStart": {
 								"type": "Expression",
 								"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart')]"
+							},
+							"directoryTime": {
+								"type": "Expression",
+								"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_directoryTime')]"
 							}
 						}
 					}
