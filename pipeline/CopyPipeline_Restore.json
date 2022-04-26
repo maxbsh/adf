@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy_wbd",
+				"name": "Copy_Restore",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
