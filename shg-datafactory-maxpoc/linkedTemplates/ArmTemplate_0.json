@@ -383,7 +383,7 @@
 							},
 							{
 								"name": "Destination",
-								"value": "backupdirectory/@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}/"
+								"value": "backupdirectory/@{formatDateTime(pipeline().parameters.directoryTime,'yyyy')}@{formatDateTime(pipeline().parameters.directoryTime,'MM')}@{formatDateTime(pipeline().parameters.directoryTime,'dd')}@{formatDateTime(pipeline().parameters.directoryTime,'HH')}@{formatDateTime(pipeline().parameters.directoryTime,'mm')}/"
 							}
 						],
 						"typeProperties": {
@@ -440,7 +440,8 @@
 								"referenceName": "DestinationDataset_Blob_Full",
 								"type": "DatasetReference",
 								"parameters": {
-									"cw_folderPath": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}"
+									"cw_folderPath": "@{formatDateTime(pipeline().parameters.directoryTime,'yyyy')}@{formatDateTime(pipeline().parameters.directoryTime,'MM')}@{formatDateTime(pipeline().parameters.directoryTime,'dd')}@{formatDateTime(pipeline().parameters.directoryTime,'HH')}@{formatDateTime(pipeline().parameters.directoryTime,'mm')}",
+									"bezeichnung": "-full"
 								}
 							}
 						]
@@ -453,6 +454,9 @@
 				"parameters": {
 					"windowStart": {
 						"type": "String"
+					},
+					"directoryTime": {
+						"type": "string"
 					}
 				},
 				"annotations": []
