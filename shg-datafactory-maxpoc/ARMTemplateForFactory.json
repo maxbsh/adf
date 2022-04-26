@@ -27,6 +27,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
 		},
+		"Trigger_1h_properties_CopyPipeline_Incr_parameters_directoryTime": {
+			"type": "string",
+			"defaultValue": "@{addhours(trigger().scheduledTime, +2)}"
+		},
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
@@ -304,7 +308,7 @@
 							},
 							{
 								"name": "Destination",
-								"value": "backupdirectory/@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}@{formatDateTime(pipeline().parameters.windowStart,'mm')}/"
+								"value": "backupdirectory/@{formatDateTime(pipeline().parameters.directoryTime,'yyyy')}@{formatDateTime(pipeline().parameters.directoryTime,'MM')}@{formatDateTime(pipeline().parameters.directoryTime,'dd')}@{formatDateTime(pipeline().parameters.directoryTime,'HH')}@{formatDateTime(pipeline().parameters.directoryTime,'mm')}/"
 							}
 						],
 						"typeProperties": {
@@ -369,7 +373,8 @@
 								"referenceName": "DestinationDataset_Blob_Incr",
 								"type": "DatasetReference",
 								"parameters": {
-									"cw_folderPath": "@{formatDateTime(pipeline().parameters.windowStart,'yyyy')}@{formatDateTime(pipeline().parameters.windowStart,'MM')}@{formatDateTime(pipeline().parameters.windowStart,'dd')}@{formatDateTime(pipeline().parameters.windowStart,'HH')}@{formatDateTime(pipeline().parameters.windowStart,'mm')}"
+									"cw_folderPath": "@{formatDateTime(pipeline().parameters.directoryTime,'yyyy')}@{formatDateTime(pipeline().parameters.directoryTime,'MM')}@{formatDateTime(pipeline().parameters.directoryTime,'dd')}@{formatDateTime(pipeline().parameters.directoryTime,'HH')}@{formatDateTime(pipeline().parameters.directoryTime,'mm')}",
+									"bezeichnung": "-incr"
 								}
 							}
 						]
@@ -385,6 +390,9 @@
 					},
 					"windowEnd": {
 						"type": "String"
+					},
+					"directoryTime": {
+						"type": "string"
 					}
 				},
 				"annotations": []
@@ -760,6 +768,10 @@
 							"windowEnd": {
 								"type": "Expression",
 								"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd')]"
+							},
+							"directoryTime": {
+								"type": "Expression",
+								"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_directoryTime')]"
 							}
 						}
 					}

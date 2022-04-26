@@ -27,6 +27,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
 		},
+		"Trigger_1h_properties_CopyPipeline_Incr_parameters_directoryTime": {
+			"type": "string",
+			"defaultValue": "@{addhours(trigger().scheduledTime, +2)}"
+		},
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"type": "string",
 			"defaultValue": "@trigger().scheduledTime"
@@ -72,6 +76,9 @@
 					},
 					"Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd": {
 						"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_windowEnd')]"
+					},
+					"Trigger_1h_properties_CopyPipeline_Incr_parameters_directoryTime": {
+						"value": "[parameters('Trigger_1h_properties_CopyPipeline_Incr_parameters_directoryTime')]"
 					},
 					"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 						"value": "[parameters('Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart')]"
