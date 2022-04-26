@@ -16,7 +16,7 @@
 					},
 					"directoryTime": {
 						"type": "Expression",
-						"value": "@{addhours(trigger().scheduledTime, +2)}"
+						"value": "@{if(Equals(addHours(convertTimeZone(trigger().scheduledTime, 'UTC', 'Central Standard Time'), +7, 'HH'),(addHours(trigger().scheduledTime, +2 'HH'))),(addhours(trigger().scheduledTime, +2)),(addhours(trigger().scheduledTime, +1)))}"
 					}
 				}
 			}
