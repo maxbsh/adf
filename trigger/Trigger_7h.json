@@ -13,6 +13,10 @@
 					"windowStart": {
 						"type": "Expression",
 						"value": "@trigger().scheduledTime"
+					},
+					"directoryTime": {
+						"type": "Expression",
+						"value": "@{addhours(trigger().scheduledTime, +2)}"
 					}
 				}
 			}
