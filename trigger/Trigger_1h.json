@@ -30,8 +30,8 @@
 			"recurrence": {
 				"frequency": "Hour",
 				"interval": 1,
-				"startTime": "2022-04-27T10:40:00",
-				"timeZone": "W. Europe Standard Time"
+				"startTime": "2022-04-27T12:40:00Z",
+				"timeZone": "UTC"
 			}
 		}
 	}
