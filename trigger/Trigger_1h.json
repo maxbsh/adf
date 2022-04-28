@@ -17,10 +17,6 @@
 					"windowEnd": {
 						"type": "Expression",
 						"value": "@trigger().scheduledTime"
-					},
-					"directoryTime": {
-						"type": "Expression",
-						"value": "@{currentTimestamp()}"
 					}
 				}
 			}
