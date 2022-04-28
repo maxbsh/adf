@@ -29,7 +29,7 @@
 		},
 		"Trigger_1h_properties_CopyPipeline_Incr_parameters_directoryTime": {
 			"type": "string",
-			"defaultValue": "@{if(Equals(addHours(convertTimeZone(trigger().scheduledTime, 'UTC', 'Central Standard Time'), +7, 'HH'),addHours(trigger().scheduledTime, +2 'HH')),addhours(trigger().scheduledTime, +2),addhours(trigger().scheduledTime, +1))}"
+			"defaultValue": "@{trigger().scheduledTime}"
 		},
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_windowStart": {
 			"type": "string",
@@ -37,7 +37,7 @@
 		},
 		"Trigger_7h_properties_CopyPipeline_Full_parameters_directoryTime": {
 			"type": "string",
-			"defaultValue": "@{if(Equals(addHours(convertTimeZone(trigger().scheduledTime, 'UTC', 'Central Standard Time'), +7, 'HH'),addHours(trigger().scheduledTime, +2 'HH')),addhours(trigger().scheduledTime, +2),addhours(trigger().scheduledTime, +1))}"
+			"defaultValue": "@{trigger().scheduledTime}"
 		},
 		"containerUri": {
 			"type": "string",
