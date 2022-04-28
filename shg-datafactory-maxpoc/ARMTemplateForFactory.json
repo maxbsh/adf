@@ -397,7 +397,7 @@
 					},
 					"directoryTime": {
 						"type": "string",
-						"defaultValue": "@currentTimestamp()"
+						"defaultValue": "@trigger().startTime"
 					}
 				},
 				"annotations": []
