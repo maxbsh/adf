@@ -14,10 +14,7 @@
 						"type": "Expression",
 						"value": "@trigger().scheduledTime"
 					},
-					"directoryTime": {
-						"type": "Expression",
-						"value": "@{if(Equals(addHours(convertTimeZone(trigger().scheduledTime, 'UTC', 'Central Standard Time'), +7, 'HH'),(addHours(trigger().scheduledTime, +2 'HH'))),(addhours(trigger().scheduledTime, +2)),(addhours(trigger().scheduledTime, +1)))}"
-					}
+					"directoryTime": "{{\"type\":\"Expression\",\"value\":\"@{if(Equals(addHours(convertTimeZone(trigger().scheduledTime, 'UTC', 'Central Standard Time'), +7, 'HH'),addHours(trigger().scheduledTime, +2 'HH')),addhours(trigger().scheduledTime, +2),addhours(trigger().scheduledTime, +1))}\"}"
 				}
 			}
 		],
@@ -26,7 +23,7 @@
 			"recurrence": {
 				"frequency": "Hour",
 				"interval": 7,
-				"startTime": "2022-04-27T10:00:00",
+				"startTime": "2022-04-28T10:00:00",
 				"timeZone": "W. Europe Standard Time"
 			}
 		}
