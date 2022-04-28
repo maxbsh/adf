@@ -20,7 +20,7 @@
 					},
 					"directoryTime": {
 						"type": "Expression",
-						"value": "@{trigger().scheduledTime}"
+						"value": "@{currentTimestamp()}"
 					}
 				}
 			}
