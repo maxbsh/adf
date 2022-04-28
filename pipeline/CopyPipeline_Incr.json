@@ -100,8 +100,7 @@
 				"type": "String"
 			},
 			"directoryTime": {
-				"type": "string",
-				"defaultValue": "@currentTimestamp()"
+				"type": "string"
 			}
 		},
 		"annotations": []
