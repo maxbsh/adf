@@ -100,8 +100,7 @@
 				"type": "String"
 			},
 			"directoryTime": {
-				"type": "string",
-				"defaultValue": "@trigger().startTime"
+				"type": "string"
 			}
 		},
 		"annotations": []
