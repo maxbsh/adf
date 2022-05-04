@@ -1,0 +1,30 @@
+{
+	"name": "DestinationDataset_Blob_Full1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_folderPath": {
+				"type": "String"
+			},
+			"bezeichnung": {
+				"type": "string",
+				"defaultValue": "-full"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@concat(dataset().cw_folderPath,dataset().bezeichnung)",
+					"type": "Expression"
+				},
+				"container": "backup-shgst01maxpoc"
+			}
+		}
+	}
+}
